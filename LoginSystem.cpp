@@ -10,7 +10,7 @@ void Register();
 void Login();
 void Change_Password();
 int main() {
-
+	ss
 	while (true) {
 		cout << "Welcome to my Login System simulator.\n";
 		cout << "1-Register\n2-Login\n3-Change Password\n4-Exit";
