@@ -7,17 +7,17 @@
 #include <map>
 #include <fstream>
 #include<conio.h>
-
+#include <regex>
 using namespace std;
 void Register();
 void Login();
 void Change_Password();
-string password();
+void password(string& password);
 
 string new_line = "--------------------------------------------------";
 
 struct Information {
-	string email, password, name;
+	string email, password, name, phone;
 };
 map<string, Information> data_information;
 int main() {
@@ -59,31 +59,49 @@ void Register() {
 	cout << "\nYour email must be in this format\nalphabets or digit characters followed by @ and then the domain followed by (.com)\nEnter your email: ";
 	cin >> data_information[ID].email;
 	cout << new_line;
-	cout << "Password must be in this format\nmust contain at least on alphabitic character and one digit and one symbol\nThe length must be at least 12 letters.\nEnter your password: ";
-	data_information[ID].password = password();
+	cout << "\nPassword must be in this format\nmust contain at least on alphabitic character and one digit and one symbol\nThe length must be at least 12 letters.\nEnter your password: ";
+	password(data_information[ID].password);
 	cout << "\nEnter your password again: ";
-	repeated_pass = password();
+	password(repeated_pass);
+	cout <<"\n" << new_line;
 	while (repeated_pass != data_information[ID].password) {
 		cout << "\nThose passwords didn't match. Try again.\n";
 		cout << "\nEnter your password again: ";
-		repeated_pass = password();
+		password(repeated_pass);
 		cout << endl;
 	}
-	 
-
+	cout << "\nPhono number must be in this format\n(010) or (011) or (012) or (015) followed by 8 digits\nEnter your phono number : ";
+	cin >> data_information[ID].phone;
 }
-string password() {
-	string password{};
-	int ch = _getch();
-	while (ch != 13) {
-		password.push_back(ch);
-		cout << "*";
-		ch = _getch();
+void password(string &password) {
+	int ch{};
+	while ((ch = _getch()) != '\r') {
+		if (ch == '\b') {
+			if (password.size() > 0) {
+				password.pop_back();
+				cout << "\b \b";
+			}
+		}
+		else{
+			password.push_back(ch);
+			cout << "*";
+		}
 	}
-	return password;
 }
 void Login() {
-
+	string ID,login_password;
+	while (true) {
+		cout << "Enter Your ID: ";
+		cin >> ID;
+		cout << "Enter your password : ";
+		password(login_password);
+		if (!data_information.count(ID) || login_password != data_information[ID].password) {
+			cout << "\nFailed login. Try again.\n";
+			continue;
+		}
+		else 
+			cout << "Successful login, Welcome back " << data_information[ID].name << endl;
+	}
 }
 void Change_Password() {
 
