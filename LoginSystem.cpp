@@ -75,6 +75,7 @@ void Register() {
 }
 void password(string &password) {
 	int ch{};
+	password = "";
 	while ((ch = _getch()) != '\r') {
 		if (ch == '\b') {
 			if (password.size() > 0) {
@@ -90,19 +91,27 @@ void password(string &password) {
 }
 void Login() {
 	string ID,login_password;
-	while (true) {
+	int attempts{};
+	while (attempts < 3) {
 		cout << "Enter Your ID: ";
 		cin >> ID;
 		cout << "Enter your password : ";
 		password(login_password);
 		if (!data_information.count(ID) || login_password != data_information[ID].password) {
 			cout << "\nFailed login. Try again.\n";
+			attempts++;
+			if (attempts == 3)
+				cout << "You are denied from accessing the system\n";
 			continue;
 		}
-		else 
+		else {
 			cout << "Successful login, Welcome back " << data_information[ID].name << endl;
+			break;
+		}
+
 	}
 }
+
 void Change_Password() {
 
 }
