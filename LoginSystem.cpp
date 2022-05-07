@@ -10,12 +10,12 @@
 #include <regex>
 using namespace std;
 void Register();
-void Login();
+bool Login();
 void Change_Password();
 void password(string& password);
 
 string new_line = "--------------------------------------------------";
-
+string ID;
 struct Information {
 	string email, password, name, phone;
 };
@@ -47,7 +47,7 @@ int main() {
 
 
 void Register() {
-	string ID,repeated_pass;
+	string repeated_pass;
 	Information student;
 	cout << "Enter your ID: ";
 	cin >> ID;
@@ -89,8 +89,8 @@ void password(string &password) {
 		}
 	}
 }
-void Login() {
-	string ID,login_password;
+bool Login() {
+	string login_password;
 	int attempts{};
 	while (attempts < 3) {
 		cout << "Enter Your ID: ";
@@ -106,6 +106,7 @@ void Login() {
 		}
 		else {
 			cout << "Successful login, Welcome back " << data_information[ID].name << endl;
+			return 1;
 			break;
 		}
 
@@ -113,6 +114,16 @@ void Login() {
 }
 
 void Change_Password() {
+	string new_password,new_password2;
+	cout << "You should login first.\n";
+	if (Login()) {
+		cout << "Please enter your new password : ";
+		password(new_password);
+		cout << "Enter your new password again : ";
+		password(new_password2);
+		if (new_password == new_password2)
+			data_information[ID].password = new_password;
+	}
 
 }
 
