@@ -51,7 +51,7 @@ int main() {
 
 void Register() {
     regex name("[^!@#$&*]+[^0-9]+");
-    regex phone("[0][1][0125][0-9]+");
+    regex phone("[0][1][0125][0-9]{8}");
     regex email("[^ .][a-zA-Z0-9]+@[Gmailgmail]+.[comCom]+[^.]");
     string repeated_pass;
     Information student;
@@ -59,16 +59,18 @@ void Register() {
     cin >> ID;
     data_information[ID] = student;
     cout << "\n" << new_line;
-    cout << "\nYour name must be in this format\nonly alphabetic letters or underscore (_)\nEnter Your name: ";
+    cout << "\nYour name must be in this format\nonly alphabetic letters or underscore (_)\n";
     do {
+        cout << "Enter your name in the properly: ";
         cin >> data_information[ID].name;
     } while (!regex_match(data_information[ID].name, name));
 
     cout << "\n" << new_line;
     cout
-            << "\nYour email must be in this format\nalphabets or digit characters followed by @ and then the domain followed by (.com)\nEnter your email: ";
+            << "\nYour email must be in this format\nalphabets or digit characters followed by @ and then the domain followed by (.com)\n";
 
     do {
+        cout << "Enter your email in the properly: ";
         cin >> data_information[ID].email;
     } while (!regex_match(data_information[ID].email, email));
     cout << new_line;
@@ -82,15 +84,16 @@ void Register() {
     cout << "\n" << new_line;
     while (repeated_pass != data_information[ID].password) {
         cout << "\nThose passwords didn't match. Try again.\n";
-        cout << "\nEnter your password again: ";
+        cout << "\nConfirm your password again: ";
         password(repeated_pass);
         cout << endl;
     }
     cout
-            << "\nPhone number must be in this format\n(010) or (011) or (012) or (015) followed by 8 digits\nEnter your phone number : ";
+            << "\nPhone number must be in this format\n(010) or (011) or (012) or (015) followed by 8 digits\n";
     do {
+        cout << "Enter your phone in the properly: ";
         cin >> data_information[ID].phone;
-    } while (!regex_match(data_information[ID].phone, name));
+    } while (!regex_match(data_information[ID].phone, phone));
 }
 
 void password(string &password) {
@@ -145,18 +148,8 @@ void Change_Password() {
     }
 
 }
-void Filter(string &str , string &phone_num , string &gmail){
-    regex name("[^!@#$&*]+[^0-9]+");
-    regex phone("[0][1][0125][0-9]+");
-    regex email ("[^ .][a-zA-Z0-9]+@[Gmailgmail]+.[comCom]+[^.]");
-    bool Name = regex_match(str , name);
-    bool Phone = regex_match(phone_num , phone);
-    bool Email = regex_match(gmail , email);
-    while(!Name && !Phone && !Email){
-        Register();
-    }
-}
+
 
 
 //todo 1: make function that checks an existing id if it has been found take another one from the user
-// todo 2 : make function that load all the information from the file to the map 
+// todo 2 : make function that load all the information from the file to the map
