@@ -15,8 +15,10 @@ void Register();
 bool Login();
 void Change_Password();
 void password(string& password);
-void Filter(string& str, string& phone_num, string& gmail);
-
+void write_to_file();
+regex name("[^!@#$&*]+[^0-9]+");
+regex phone("[0][1][0125][0-9]+");
+regex email("[^ .][a-zA-Z0-9]+@[Gmailgmail]+.[comCom]+[^.]");
 string new_line = "--------------------------------------------------";
 string ID;
 struct Information {
@@ -42,7 +44,8 @@ int main() {
             Change_Password();
             break;
         case 4:
-            return 0;
+            write_to_file();
+            break;
         }
     }
 
@@ -50,9 +53,7 @@ int main() {
 
 
 void Register() {
-    regex name("[^!@#$&*]+[^0-9]+");
-    regex phone("[0][1][0125][0-9]+");
-    regex email("[^ .][a-zA-Z0-9]+@[Gmailgmail]+.[comCom]+[^.]");
+
     string repeated_pass;
     Information student;
     cout << "Enter your ID: ";
@@ -147,6 +148,23 @@ void Change_Password() {
 }
 
 
+void write_to_file(){
+    ofstream out_file{"data_information.txt", ios::app};
+
+    if (!out_file) {
+        cerr << "Error opening the file." << endl;
+    }
+    for (const auto& myPair : data_information) {
+        string id = myPair.first;
+        out_file << id << endl;
+        out_file << data_information[id].name << endl;
+        out_file << data_information[id].email << endl;
+        out_file << data_information[id].phone << endl;
+        out_file << data_information[id].password << endl;
+    }
+
+    out_file.close();
+}
 
 //todo 1: make function that checks an existing id if it has been found take another one from the user
 // todo 2 : make function that load all the information from the file to the map 
