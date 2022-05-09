@@ -53,6 +53,7 @@ void Register() {
     regex name("[^!@#$&*]+[^0-9]+");
     regex phone("[0][1][0125][0-9]{8}");
     regex email("[^ .][a-zA-Z0-9]+@[Gmailgmail]+.[comCom]+[^.]");
+    regex strongPassword("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
     string repeated_pass;
     Information student;
     cout << "Enter your ID: ";
@@ -79,7 +80,7 @@ void Register() {
                "The length must be at least 12 letters.\nEnter your password: ";
 
     password(data_information[ID].password);
-    cout << "\nEnter your password again: ";
+    cout << "\nConfirm your password again: ";
     password(repeated_pass);
     cout << "\n" << new_line;
     while (repeated_pass != data_information[ID].password) {
