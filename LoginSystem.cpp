@@ -90,7 +90,7 @@ void Register() {
         << "\nPhone number must be in this format\n(010) or (011) or (012) or (015) followed by 8 digits\nEnter your phone number : ";
     do {
         cin >> data_information[ID].phone;
-    } while (!regex_match(data_information[ID].phone, name));
+    } while (!regex_match(data_information[ID].phone, phone));
 }
 
 void password(string& password) {
@@ -145,17 +145,7 @@ void Change_Password() {
     }
 
 }
-void Filter(string& str, string& phone_num, string& gmail) {
-    regex name("[^!@#$&*]+[^0-9]+");
-    regex phone("[0][1][0125][0-9]+");
-    regex email("[^ .][a-zA-Z0-9]+@[Gmailgmail]+.[comCom]+[^.]");
-    bool Name = regex_match(str, name);
-    bool Phone = regex_match(phone_num, phone);
-    bool Email = regex_match(gmail, email);
-    while (!Name && !Phone && !Email) {
-        Register();
-    }
-}
+
 
 
 //todo 1: make function that checks an existing id if it has been found take another one from the user
