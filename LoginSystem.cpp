@@ -23,11 +23,10 @@ regex passwordRegex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$
 
 
 string new_line = "--------------------------------------------------";
-string StrongPassword = "######### Strong Password Rules #########\n"
+string StrongPassword = "\n######### Strong Password Rules #########\n"
 "1-Password must not be less than 8 characters\n"
 "2-password must have capital & small letters\n"
-"3-Password must have special characters like *@!()$^\n"
-"Please Enter your Password: ";
+"3-Password must have special characters like *@!()$^";
 string ID;
 struct Information {
     string email, password, name, phone;
@@ -83,6 +82,7 @@ void Register() {
     cout << new_line;
     cout << StrongPassword;
     do {
+        cout << "\nPlease Enter your Password properly: ";
         password(data_information[ID].password);
     } while (!regex_match(data_information[ID].password, passwordRegex));
     cout << "\nConfirm your password again:";
