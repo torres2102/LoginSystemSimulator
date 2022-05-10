@@ -14,11 +14,20 @@ using namespace std;
 void Register();
 bool Login();
 void Change_Password();
-void password(string& password, string strongPass = " ");
+void password(string& password);
 void write_to_file();
-void Filter(string& str, string& phone_num, string& gmail);
+regex name("[^!@#$&*]+[^0-9]+");
+regex phone("[0][1][0125][0-9]{8}");
+regex email("[^.][a-zA-Z0-9]+@[a-z]+.[comCom]+[^.]");
+regex passwordRegex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+
 
 string new_line = "--------------------------------------------------";
+string StrongPassword = "######### Strong Password Rules #########\n"
+"1-Password must not be less than 8 characters\n"
+"2-password must have capital & small letters\n"
+"3-Password must have special characters like *@!()$^\n"
+"Please Enter your Password: ";
 string ID;
 struct Information {
     string email, password, name, phone;
@@ -51,15 +60,6 @@ int main() {
 
 
 void Register() {
-    string strongPass = "######### Strong Password Rules #########\n"
-        "1-Password must not be less than 8 characters\n"
-        "2-password must have capital & small letters\n"
-        "3-Password must have special characters like *@!()$^\n"
-        "Please Enter your Password: ";
-    regex name("[^!@#$&*]+[^0-9]+");
-    regex phone("[0][1][0125][0-9]{8}");
-    regex email("[^.][a-zA-Z0-9]+@[a-z]+.[comCom]+[^.]");
-    regex passwordRegex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
     string repeated_pass;
     Information student;
     cout << "Enter your ID: ";
@@ -68,7 +68,7 @@ void Register() {
     cout << "\n" << new_line;
     cout << "\nYour name must be in this format\nonly alphabetic letters or underscore (_)\n";
     do {
-        cout << "Enter your name in the properly: ";
+        cout << "Enter your name : ";
         cin >> data_information[ID].name;
     } while (!regex_match(data_information[ID].name, name));
 
@@ -77,12 +77,13 @@ void Register() {
         << "\nYour email must be in this format\nalphabets or digit characters followed by @ and then the domain followed by (.com)\n";
 
     do {
-        cout << "Enter your email in the properly: ";
+        cout << "Enter your email : ";
         cin >> data_information[ID].email;
     } while (!regex_match(data_information[ID].email, email));
     cout << new_line;
+    cout << StrongPassword;
     do {
-        password(data_information[ID].password, strongPass);
+        password(data_information[ID].password);
     } while (!regex_match(data_information[ID].password, passwordRegex));
     cout << "\nConfirm your password again:";
     password(repeated_pass);
@@ -96,14 +97,12 @@ void Register() {
     cout
         << "\nPhone number must be in this format\n(010) or (011) or (012) or (015) followed by 8 digits\n";
     do {
-        cout << "Enter your phone in the properly: ";
+        cout << "Enter your phone : ";
         cin >> data_information[ID].phone;
     } while (!regex_match(data_information[ID].phone, phone));
 }
 
-void password(string& password, string strongpass) {
-    ;
-    cout << strongpass;
+void password(string& password) {
     int ch{};
     password = "";
     while ((ch = _getch()) != '\r') {
@@ -144,15 +143,11 @@ bool Login() {
 }
 
 void Change_Password() {
-    string strongPass = "######### Strong Password Rules #########\n"
-        "1-Password must not be less than 8 characters\n"
-        "2-password must have capital & small letters\n"
-        "3-Password must have special characters like *@!()$^\n"
-        "Please enter your new password : ";
+    cout << StrongPassword;
     string new_password, new_password2;
     cout << "You should login first.\n";
     if (Login()) {
-        password(new_password, strongPass);
+        password(new_password);
         cout << "Enter your new password again :";
         password(new_password2);
         if (new_password == new_password2)
@@ -174,3 +169,4 @@ void write_to_file() {
         out_file << data_information[id].phone << endl;
         out_file << data_information[id].password << endl;
     }
+}
