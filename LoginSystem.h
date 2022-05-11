@@ -14,4 +14,7 @@ bool Login();
 void Change_Password();
 void password(string& password);
 void write_to_file();
+void read_from_file();
+
+
 

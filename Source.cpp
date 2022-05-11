@@ -1,10 +1,10 @@
 #include "LoginSystem.h"
 
+
 regex name("[^!@#$&*]+[^0-9]+");
 regex phone("[0][1][0125][0-9]{8}");
 regex email("[^.][a-zA-Z0-9]+@[a-z]+.[comCom]+[^.]");
 regex passwordRegex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
-
 string new_line = "--------------------------------------------------";
 string StrongPassword = "\n######### Strong Password Rules #########\n"
 "1-Password must not be less than 8 characters\n"
@@ -126,4 +126,22 @@ void write_to_file() {
         out_file << data_information[id].phone << endl;
         out_file << data_information[id].password << endl;
     }
+}
+void read_from_file(){
+    string id, name, email, phone, password;
+    ifstream in_file;
+    in_file.open("data_information.txt");
+    if (!in_file) {
+        cerr << "Please check if there's something wrong with the file.";
+    }
+    while (in_file >> id >> name >> email >> phone >> password) {
+        data_information[id].name = name;
+        data_information[id].password = password;
+        data_information[id].email = email;
+        data_information[id].phone= phone;
+
+    }
+
+    in_file.close();
+
 }
