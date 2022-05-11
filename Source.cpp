@@ -57,6 +57,7 @@ void Register() {
         cout << "Enter your phone : ";
         cin >> data_information[ID].phone;
     } while (!regex_match(data_information[ID].phone, phone));
+    write_to_file();
 }
 
 void password(string& password) {
@@ -77,6 +78,7 @@ void password(string& password) {
 
 }
 bool Login() {
+    read_from_file();
     string login_password;
     int attempts{};
     while (attempts < 3) {
@@ -126,6 +128,7 @@ void write_to_file() {
         out_file << data_information[id].phone << endl;
         out_file << data_information[id].password << endl;
     }
+    out_file.close();
 }
 void read_from_file(){
     string id, name, email, phone, password;

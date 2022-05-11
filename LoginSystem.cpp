@@ -23,8 +23,7 @@ int main() {
             Change_Password();
             break;
         case 4:
-            read_from_file();
-            break;
+            return 0;
         }
     }
 
